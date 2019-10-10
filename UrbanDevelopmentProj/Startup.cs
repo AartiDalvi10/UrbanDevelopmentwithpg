@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using UrbanDevelopmentProj.Models;
 
 namespace UrbanDevelopmentProj
 {
@@ -33,6 +35,14 @@ namespace UrbanDevelopmentProj
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddEntityFrameworkNpgsql().AddDbContext<MyWebApiContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("MyWebApiConnection")));
+
+            //// Add framework services.
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddIdentity<User, IdentityRole<long>>()
+            //                .AddEntityFrameworkStores<ApplicationDbContext, long>()
+            //                .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
